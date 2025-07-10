@@ -1,67 +1,74 @@
 {% extends "base.html" %}
+
 {% block content %}
-<title>FocusHub - Task Completion</title>
 <style>
     body {
-        background-image: url('BG-1.jpeg'); /* adjust path if needed */
+        background-image: url('BG-1.jpeg');
         background-size: cover;
         background-position: center;
+        background-attachment: fixed;
         font-family: 'Playfair Display', serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .confirm-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 100px);
+        padding: 40px 20px;
     }
 
     h2 {
-        margin-top: 200px;
-        text-align: center;
+        font-size: 32px;
+        color: #222;
+        font-weight: 600;
         margin-bottom: 20px;
-        font-size: 50px;
-    }
-    .Task {
-        text-decoration-line: underline;
-        text-decoration-thickness: 2px;
-        text-decoration-style: double;
-        color: #0c0101;
-        font-weight: bold;
+        text-align: center;
     }
 
     form {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: transparent;
+        max-width: 420px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(10px);
         border-radius: 10px;
-        margin-top: 40px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        text-align: center;
     }
 
     button {
         font-family: 'Playfair Display', serif;
-        margin-top: 10px;
-        font-size: 20px;
-        font-weight: bold;
-        text-transform: uppercase;
-        display: block;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 12px;
         width: 100%;
-        padding: 10px;
-        background-color: rgba(255, 219, 17, 0.938);
-        color: rgb(12, 11, 11);
-        border-width: 2px;
-        border-radius: 5px;
+        margin-top: 15px;
+        background-color: #ffdc3b;
+        color: #111;
+        border: 2px solid #111;
+        border-radius: 8px;
         cursor: pointer;
-        transition: background-color 0.3s ease,color 0.3s ease;
+        transition: all 0.3s ease;
     }
 
     button:hover {
-        background-color: #000000;
-        color:rgba(240, 199, 18, 0.966); 
+        background-color: #111;
+        color: #ffdc3b;
     }
 </style>
-<h2>⏳ <span class="Task">Did You Complete The Task ?</span> ⏳</h2>
-<form method="post">
-    {% csrf_token %}
-    <input type="hidden" name="session_id" value="{{ session.id }}">
-    <button type="submit" name="completed" value="yes">✅ Yes</button>
-    <button type="submit" name="completed" value="no">❌ No</button>
-</form>
+
+<div class="confirm-wrapper">
+    <h2>Did you complete the task?</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="session_id" value="{{ session.id }}">
+        <button type="submit" name="completed" value="yes">Yes, I finished it ✅</button>
+        <button type="submit" name="completed" value="no">Not yet ❌</button>
+    </form>
+</div>
 {% endblock %}
