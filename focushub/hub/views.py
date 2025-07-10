@@ -8,8 +8,7 @@ from django.shortcuts import get_object_or_404
 from datetime import date, timedelta, datetime, time
 from .utils import enforce_focus_lock
 from django.db.models import Sum
-from django.utils.timezone import now
-
+from django.utils import timezone
 @enforce_focus_lock
 def home_redirect(request):
 
@@ -78,24 +77,51 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+
 @enforce_focus_lock
 @login_required
 def todos_view(request):
+    user = request.user
 
     if request.method == 'POST':
         form = TaskForm(request.POST)
-
         if form.is_valid():
             task = form.save(commit=False)
-            task.user = request.user
+            task.user = user
             task.save()
             return redirect('todos')
     else:
         form = TaskForm()
 
-    tasks = Task.objects.filter(user=request.user, is_done=False).order_by('due_date')
-    completed_tasks = Task.objects.filter(user=request.user, is_done=True).order_by('-due_date')
-    return render(request, 'todos.html', {'form': form, 'tasks': tasks, 'completed_tasks': completed_tasks})
+    today = date.today()
+    tomorrow = today + timedelta(days=1)
+    three_days_later = today + timedelta(days=3)
+
+    all_tasks = Task.objects.filter(user=user, is_done=False).order_by('due_date')
+
+    tasks_today = all_tasks.filter(due_date__date=today)
+    tasks_tomorrow = all_tasks.filter(due_date__date=tomorrow)
+    tasks_upcoming = all_tasks.filter(due_date__date__gt=tomorrow, due_date__date__lte=three_days_later)
+    tasks_later = all_tasks.filter(due_date__date__gt=three_days_later)
+
+
+    overdue_tasks = all_tasks.filter(due_date__date__lt=today)
+    completed_tasks = Task.objects.filter(user=user, is_done=True).order_by('-due_date')
+
+    context = {
+        'form': form,
+        'grouped_tasks': {
+            'overdue': overdue_tasks,
+            'today': tasks_today,
+            'tomorrow': tasks_tomorrow,
+            'upcoming': tasks_upcoming,
+            'later': tasks_later,
+        },
+        'completed_tasks': completed_tasks,
+        'now': timezone.localtime(timezone.now()),
+    }
+
+    return render(request, 'todos.html', context)
 
 @login_required
 def complete_task(request, task_id):
@@ -209,3 +235,25 @@ def analytics_view(request):
     }
 
     return render(request, 'analytics.html', context)
+
+@login_required
+@enforce_focus_lock
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+    task.delete()
+    return redirect('todos')
+
+@enforce_focus_lock
+@login_required
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('todos')
+    else:
+        form = TaskForm(instance=task)
+
+    return render(request, 'edit_task.html', {'form': form, 'task': task})

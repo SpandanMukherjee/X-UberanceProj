@@ -1,41 +1,183 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Your to-do list</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Task</button>
-    </form>
 
-    <hr>
+<style>
+    .completed-task {
+        color: gray;
+        text-decoration: line-through;
+        opacity: 0.7;
+    }
+</style>
 
-    <h3>Pending Tasks:</h3>
-    
-    {% if tasks %}
-        <ul>
-            {% for task in tasks %}
-                <li>
-                    <form action="{% url 'complete_task' task.id %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="Submit">Mark Done</button>
-                    </form>
-                    {{ task.title }} - due {{ task.due_date|date:"M d, Y H:i" }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No pending tasks.</p>
-    {% endif %}
+<h2>Your To-Do List</h2>
 
-    <h3> Completed Tasks: </h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Task</button>
+</form>
 
-    {% if completed_tasks %}
-        <ul>
-            {% for task in completed_tasks %}
-                <li>
-                    <s> {{ task.title }} </s> - completed, was due {{ task.due_date|date:"M d, Y H:i" }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+<hr>
+
+<h3>Pending Tasks</h3>
+
+{% if grouped_tasks.overdue %}
+    <h4 style="color: red;">⚠️ Overdue</h4>
+    <ul>
+        {% for task in grouped_tasks.overdue %}
+            <li>
+                <form action="{% url 'complete_task' task.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">✔️ Done</button>
+                </form>
+
+                <form action="{% url 'delete_task' task.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                    {% csrf_token %}
+                    <button type="submit">🗑️ Delete</button>
+                </form>
+
+                <form action="{% url 'edit_task' task.id %}" method="get" style="display:inline;">
+                    <button type="submit">✏️ Edit</button>
+                </form>
+
+                {% with diff=task.due_date|timesince %}
+                    {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (overdue by {{ diff }})
+                {% endwith %}
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if grouped_tasks.today %}
+    <h4 style="color: green;">✅ Today</h4>
+    <ul>
+        {% for task in grouped_tasks.today %}
+           <li>
+            <form action="{% url 'complete_task' task.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">✔️ Done</button>
+            </form>
+
+            <form action="{% url 'delete_task' task.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                {% csrf_token %}
+                <button type="submit">🗑️ Delete</button>
+            </form>
+
+            <form action="{% url 'edit_task' task.id %}" method="get" style="display:inline;">
+                <button type="submit">✏️ Edit</button>
+            </form>
+
+                {% with diff=task.due_date|timeuntil %}
+                    {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
+                {% endwith %}
+
+    </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if grouped_tasks.tomorrow %}
+    <h4 style="color: dodgerblue;"> 📅 Tomorrow</h4>
+    <ul>
+        {% for task in grouped_tasks.tomorrow %}
+            <li>
+                <form action="{% url 'complete_task' task.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">✔️ Done</button>
+                </form>
+
+                <form action="{% url 'delete_task' task.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                    {% csrf_token %}
+                    <button type="submit">🗑️ Delete</button>
+                </form>
+
+                <form action="{% url 'edit_task' task.id %}" method="get" style="display:inline;">
+                    <button type="submit">✏️ Edit</button>
+                </form>
+
+                {% with diff=task.due_date|timeuntil %}
+                    {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
+                {% endwith %}
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if grouped_tasks.upcoming %}
+    <h4 style="color: slateblue;">📅 Upcoming</h4>
+    <ul>
+        {% for task in grouped_tasks.upcoming %}
+            <li>
+                <form action="{% url 'complete_task' task.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">✔️ Done</button>
+                </form>
+
+                <form action="{% url 'delete_task' task.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                    {% csrf_token %}
+                    <button type="submit">🗑️ Delete</button>
+                </form>
+
+                <form action="{% url 'edit_task' task.id %}" method="get" style="display:inline;">
+                    <button type="submit">✏️ Edit</button>
+                </form>     
+
+                {% with diff=task.due_date|timeuntil %}
+                    {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
+                {% endwith %}
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if grouped_tasks.later %}
+    <h4 style="color: gray;">💤 Later</h4>
+    <ul>
+        {% for task in grouped_tasks.later %}
+            <li>
+                <form action="{% url 'complete_task' task.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">✔️ Done</button>
+                </form>
+
+                <form action="{% url 'delete_task' task.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                    {% csrf_token %}
+                    <button type="submit">🗑️ Delete</button>
+                </form>
+
+                <form action="{% url 'edit_task' task.id %}" method="get" style="display:inline;">
+                    <button type="submit">✏️ Edit</button>
+                </form>
+
+                {% with diff=task.due_date|timeuntil %}
+                    {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
+                {% endwith %}
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if not grouped_tasks.today and not grouped_tasks.tomorrow and not grouped_tasks.upcoming and not grouped_tasks.later %}
+    <p>No pending tasks.</p>
+{% endif %}
+
+<hr>
+
+<h3>Completed Tasks</h3>
+{% if completed_tasks %}
+    <ul>
+        {% for task in completed_tasks %}
+            <li class="completed-task">
+                {{ task.title }} — was due {{ task.due_date|date:"M d, Y H:i" }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No completed tasks yet.</p>
+{% endif %}
+
 {% endblock %}

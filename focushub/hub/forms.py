@@ -14,6 +14,10 @@ class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'password', 'placeholder': 'Password'
     }), required=True)
+    
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'confirm_password', 'placeholder': 'Confirm Password'
+    }), required=True)
 
     class Meta:
         model = User
@@ -23,6 +27,14 @@ class SignUpForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'email', 'placeholder': 'Email'}),
         }
 
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+
+        if password and confirm_password and password != confirm_password:
+            self.add_error('confirm_password', "Passwords do not match.")
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password'])
@@ -31,6 +43,7 @@ class SignUpForm(forms.ModelForm):
             user.save()
 
         return user
+
 
 class TaskForm(forms.ModelForm):
 

@@ -26,7 +26,10 @@
         color: #222;
     }
 
-    input.username, input.password, input.email {
+    input.username,
+    input.password,
+    input.email,
+    input.confirm_password {
         width: 100%;
         padding: 12px;
         margin-bottom: 20px;
@@ -69,6 +72,12 @@
         {{ form.username }}
         {{ form.email }}
         {{ form.password }}
+        {{ form.confirm_password }}
+        {% if form.non_field_errors %}
+            <div class="error" style="color:red; margin-top:10px;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
         <button type="submit" class="signup-button">Create Account</button>
     </form>
     <p class="login-link">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
