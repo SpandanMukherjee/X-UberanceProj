@@ -1,12 +1,8 @@
-
 {% extends "base.html" %}
-{% load form_filters %}
 
 {% block content %}
-<title>FocusHub - Sign Up</title>
 <style>
     body {
-        background-image: url('BG-1.jpeg'); /* adjust path if needed */
         background-size: cover;
         background-position: center;
         font-family: 'Playfair Display', serif;
@@ -17,7 +13,7 @@
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.3);
         border-radius: 15px;
-        padding: 25px;
+        padding: 30px;
         width: 420px;
         margin: 60px auto;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -43,28 +39,24 @@
     }
 
     .signup-button {
-        display: block;
-        width: 100%;
         background-color: rgb(255, 216, 20);
         color: black;
         border: 2px solid black;
         border-radius: 8px;
         padding: 10px 24px;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
         cursor: pointer;
         transition: background-color 0.2s ease;
     }
 
     .signup-button:hover {
-        background-color: rgb(32, 31, 37);
-        color: rgb(255, 216, 20);
-
+        background-color: #ffd000;
     }
 
     .login-link {
         margin-top: 20px;
-        font-size: 20px;
+        font-size: 14px;
     }
 
     .login-link a {
