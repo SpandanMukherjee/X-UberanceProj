@@ -1,5 +1,119 @@
 {% extends "base.html" %}
 {% block content %}
+<title>FocusHub - Habit Selection </title>
+<style>
+    body {
+        background-image: url('Clouds.jpg'); /* adjust path if needed */
+        background-size: cover;
+        background-position: center;
+        font-family: 'Playfair Display', serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 50px;
+    }
+
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    input[type="text"], select {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        font-family: 'Playfair Display', serif;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #ffee05; /* Light yellow */
+        color: rgb(10, 10, 10);
+        border-width: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #eec301; /* Darker yellow */
+    }
+    button:active {
+        background-color: #c7a602; /* Even darker yellow */
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px auto;
+        max-width: 500px;
+    }
+    li {
+        font-family: 'Playfair Display', serif;
+        display: block;
+        margin-top: 10px;
+        background-color: transparent;
+        color: rgb(0, 0, 0);
+        font-size: 20px;    
+        font-weight: bold;
+        backdrop-filter: blur(10px);
+        border-color: rgb(14, 13, 13);
+        border-width: 2px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    li:hover {
+        background-color: rgba(53, 2, 100, 0.808);
+        color: white;
+    }
+    hr {
+        margin: 20px auto;
+        width: 80%;
+        border: 1px solid #ccc;
+    }
+    h3 {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 40px;
+        font-family: 'Playfair Display', serif;
+        color: #0c0101;
+        font-weight: bold;
+    }
+    .Habit{text-decoration-line: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-style: wavy;
+    }
+    p {
+        font-family: 'Playfair Display', serif;
+        text-align: center;
+        font-size: 25px;
+        color: #0c0101;
+        font-style: italic;
+        font-weight:bold;
+        margin-bottom: 10px;
+        text-decoration-line: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-style: double;
+    }
+</style>
     <h2>Your Habit Goals</h2>
 
     <form method="post">
@@ -9,7 +123,7 @@
     </form>
 
     <hr>
-    <h3>Current Habits:</h3>
+    <h3>🎯 <span class="Habit">Current Habits</span> 🎯</h3>
 
     {% if habits %}
         <ul>
@@ -20,6 +134,6 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>No habits added yet. Add one above!</p>
+        <p> ↑ No habits added yet. Add one above! ↑	</p>
     {% endif %}
 {% endblock %}
