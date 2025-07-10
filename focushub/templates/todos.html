@@ -2,14 +2,121 @@
 {% block content %}
 
 <style>
+    body {
+        background-image: url('BG-1.jpeg'); /* adjust path if needed */
+        background-size: cover;
+        background-position: center;
+        font-family: 'Playfair Display', serif;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 50px;
+    }
+    h3 {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 40px;
+        font-family: 'Playfair Display', serif;
+        color: #0c0101;
+        font-weight: bold;
+    }
+    h4 {
+        margin-top: 20px;
+        font-size: 30px;
+        font-family: 'Playfair Display', serif;
+        text-align: center;
+        font-weight: bold;
+    }  
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0);
+    }
+    input[type="text"], select {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        font-size: 18px;
+        background-color: rgba(5, 223, 70, 0.918);
+    }
+    button {
+        display: block;
+        font-family: 'Playfair Display', serif;
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #ffee05; /* Light yellow */
+        color: rgb(10, 10, 10);
+        border-width: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #eec301; /* Darker yellow */
+    }
+    button:active {
+        background-color: #c7a602; /* Even darker yellow */
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px auto;
+        max-width: 500px;
+        border-width: 4px;
+        border-style: solid;    
+        border-color: rgb(97, 2, 15);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        padding: 20px;
+    }
     .completed-task {
         color: gray;
         text-decoration: line-through;
         opacity: 0.7;
     }
+    li {
+        font-family: 'Playfair Display', serif;
+        display: block;
+        margin-top: 10px;
+        background-color: transparent;
+        color: rgb(0, 0, 0);
+        font-size: 20px;    
+    }
+    li form {
+        display: inline;
+        margin-right: 10px;
+    }
+    .error {
+        color: red;
+        margin-top: 10px;
+    }
+    .task_id {
+        font-family: 'Playfair Display', serif;
+        text-decoration-line: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-style: double;
+        color: #0c0101;
+        font-weight: bold;
+    }
+    
 </style>
 
-<h2>Your To-Do List</h2>
+<h2>📋 Your To-Do List</h2>
 
 <form method="post">
     {% csrf_token %}
@@ -19,7 +126,7 @@
 
 <hr>
 
-<h3>Pending Tasks</h3>
+<h3>⏱️ Pending Tasks</h3>
 
 {% if grouped_tasks.overdue %}
     <h4 style="color: red;">⚠️ Overdue</h4>
@@ -78,7 +185,7 @@
 {% endif %}
 
 {% if grouped_tasks.tomorrow %}
-    <h4 style="color: dodgerblue;"> 📅 Tomorrow</h4>
+    <h4 style="color: rgb(22, 12, 117);"> 📅 Tomorrow</h4>
     <ul>
         {% for task in grouped_tasks.tomorrow %}
             <li>
@@ -167,7 +274,7 @@
 
 <hr>
 
-<h3>Completed Tasks</h3>
+<h3>🎯 Completed Tasks</h3>
 {% if completed_tasks %}
     <ul>
         {% for task in completed_tasks %}
