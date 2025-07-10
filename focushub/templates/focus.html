@@ -1,14 +1,107 @@
+
 {% extends "base.html" %}
 {% block content %}
-<h2>Focus Session</h2>
+<title>FocusHub - Focus Session</title>
+<style>
+    body {
+        background-image: url('Clouds.jpg'); /* adjust path if needed */
+        background-size: cover;
+        background-position: center;
+        font-family: 'Playfair Display', serif;
+    }
+    p {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-weight: bold;
+        text-align: center;;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 50px;
+    }
+    h3 {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 40px;
+        font-family: 'Playfair Display', serif;
+        color: #0c0101;
+        font-weight: bold;
+    }
+    .focus {
+        text-decoration-line: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-style: double;
+        color: #0c0101;
+        font-weight: bold;
+    }
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    input[type="text"], select {
+        margin-top: 10px;
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        font-size: 18px;
+        background-color: rgba(5, 223, 70, 0.918);
+        border-color: black;
+        border-style: double;
+        border-width: 3px;
+        color: black;
+    }
+
+    button {
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #ffee05; /* Light yellow */
+        color: rgb(10, 10, 10);
+        border-width: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #000000; 
+        color: #ffee05;
+    }
+    .task_id {
+        font-family: 'Playfair Display', serif;
+        text-decoration-line: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-style: double;
+        color: #0c0101;
+        font-weight: bold;
+    }
+</style>
+<h2>⚡️ Focus Session ⚡️</h2>
 
 {% if current_session %}
-    <h3>⏳ You are now in a Focus Session</h3>
+    <h3>⏳ <span class="focus">You are now in a Focus Session</span> ⏳</h3>
     <p>Started at: {{ current_session.start_time|date:"H:i A" }}</p>
     <p>Task: {{ current_session.task.title }}</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" name="end_session">End Session</button>
+        <button type="submit" name="end_session">✅ End Session</button>
     </form>
 {% else %}
     <form method="post">
@@ -20,7 +113,7 @@
             {% endfor %}
         </select>
         <br><br>
-        <button type="submit">Start Focus</button>
+        <button type="submit">🎯 Start Focus</button>
     </form>
 {% endif %}
 
