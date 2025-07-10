@@ -17,21 +17,23 @@
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.3);
         border-radius: 15px;
-        padding: 40px;
-        width: 400px;
-        margin: 100px auto;
+        padding: 25px;
+        width: 420px;
+        margin: 60px auto;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         text-align: center;
     }
 
     .signup-container h2 {
-        margin-bottom: 30px;
-        font-size: 40px;
-        font-weight: bold;
+        margin-bottom: 20px;
+        font-size: 36px;
         color: #222;
     }
 
-    input.username, input.password, input.email, input.confirm_password {
+    input.username,
+    input.email,
+    input.password,
+    input.confirm_password {
         width: 100%;
         padding: 12px;
         margin-bottom: 20px;
@@ -69,6 +71,12 @@
         color: #000;
         text-decoration: underline;
     }
+
+    .errorlist {
+        color: red;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
 </style>
 
 <div class="signup-container">
@@ -79,11 +87,16 @@
         {{ form.email }}
         {{ form.password }}
         {{ form.confirm_password }}
+
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="errorlist">{{ error }}</div>
+            {% endfor %}
+        {% endfor %}
         {% if form.non_field_errors %}
-            <div class="error" style="color:red; margin-top:10px;">
-                {{ form.non_field_errors }}
-            </div>
+            <div class="errorlist">{{ form.non_field_errors }}</div>
         {% endif %}
+
         <button type="submit" class="signup-button">Create Account</button>
     </form>
     <p class="login-link">Already have an account? <a href="{% url 'login' %}">Log in</a></p>

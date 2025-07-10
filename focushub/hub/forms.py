@@ -44,7 +44,6 @@ class SignUpForm(forms.ModelForm):
 
         return user
 
-
 class TaskForm(forms.ModelForm):
 
     class Meta:
