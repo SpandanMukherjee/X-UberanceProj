@@ -11,4 +11,5 @@ urlpatterns = [
     path('habits/', views.habits_view, name='habits'),
     path('focus/', views.focus_view, name='focus'),
     path('focus/confirm/', views.confirm_focus_completion, name='confirm_focus_completion'),
+    path('analytics/', views.analytics_view, name='analytics'),
 ]
