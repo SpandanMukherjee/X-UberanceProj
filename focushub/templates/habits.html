@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Your Habit Goals</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Habit</button>
+    </form>
+
+    <hr>
+    <h3>Current Habits:</h3>
+
+    {% if habits %}
+        <ul>
+            {% for habit in habits %}
+                <li>
+                    {{ habit.name }} - {{ habit.frequency|capfirst }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No habits added yet. Add one above!</p>
+    {% endif %}
+{% endblock %}
