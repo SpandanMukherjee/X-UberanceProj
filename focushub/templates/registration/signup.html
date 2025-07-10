@@ -1,14 +1,97 @@
-{% extends "base.html" %}
-{% block content %}
+<!DOCTYPE html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Mono&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            background-image: url(Clouds.jpg);
+            height: 80vh;
+            background-size: cover;
+            background-position: center;
+            margin-top: 80px;
+            margin-bottom: 80px;
+            margin-right: 350px;
+            margin-left: 350px;
+            border-color: lightgray;
+            border-style: solid;
+            border-width: 6px;
+            border-radius: 10px;
+        }
+    .sign {
+        font-weight: bold;
+        font-family: Playfair Display;
+        display: block;
+        text-align: center;
+        margin-top: 80px;
+        font-size: 40px;
+        color: Black;
+        margin-bottom: 80px
+        }
+    .container {
+        background: transparent;
+        backdrop-filter: blur(10px);
+        display: block;
+        display: grid;
+        place-items: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        padding-left: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size:24px;
+        line-height:20px;
+        margin-bottom: 60px;
+    }
+    .username, .password, .email, .c-password {
+        font-family: Playfair Display;
+        display: block;
+        padding: 10px;
+        margin: 10px auto;
+        width: 300px;
+        border-radius: 5px;
+        border: 2px solid black;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    .acc {
+        font-family: Playfair Display;
+        display: block;
+        padding: 10px;
+        background-color: rgb(255, 216, 20);
+        color: black;
+        border-color: black; 
+        border-style: solid;
+        border-radius: 5px;
+        cursor: pointer;
+        border-width: 2px;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+    .link{
+        text-decoration: none;
+        color: black;
+    }
+    </style>
+    <title>FocusHub - Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
     <div class="container">
-        <h2>Sign Up</h2>
-
+        <h2 class="sign">Sign Up</h2>
+        <input type="text" name="email" class="email" placeholder="Enter E-mail ID" required>
+        <input type="text" name="username" class="username" placeholder="Username" required>
+        <input type="password" name="password" class="password" placeholder="Password" required>
+        <input type="password" name="c_password" class="c-password" placeholder="Confirm Password" required>
         <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Create Account</button>
+            <button type="submit" class="acc"><a href="{% url 'login' %}"><span class="link">Create Account</span></a></button>
         </form>
         
-        <p>Already have an account? <a href="{% url 'login' %}">Log in</a> </p>
+        <p class="sign-log">Already have an account? <a href="{% url 'login' %}">Log in</a> </p>
     </div>
-{% endblock %}
+</body>
+</html>
