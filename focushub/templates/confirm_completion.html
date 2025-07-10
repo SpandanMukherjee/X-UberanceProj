@@ -1,6 +1,66 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Did you complete the task?</h2>
+<title>FocusHub - Task Completion</title>
+<style>
+    body {
+        background-image: url('Clouds.jpg'); /* adjust path if needed */
+        background-size: cover;
+        background-position: center;
+        font-family: 'Playfair Display', serif;
+    }
+
+    h2 {
+        margin-top: 200px;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 50px;
+    }
+    .Task {
+        text-decoration-line: underline;
+        text-decoration-thickness: 2px;
+        text-decoration-style: double;
+        color: #0c0101;
+        font-weight: bold;
+    }
+
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    button {
+        font-family: 'Playfair Display', serif;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #1b018f; /* Light blue */
+        color: rgb(255, 255, 255);
+        border-width: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #24146b; /* Darker blue */
+    }
+
+    button:active {
+        background-color: #010763; /* Even darker blue */
+    }
+</style>
+<h2>⏳ <span class="Task">Did You Complete The Task ?</span> ⏳</h2>
 <form method="post">
     {% csrf_token %}
     <input type="hidden" name="session_id" value="{{ session.id }}">
