@@ -1,7 +1,78 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Edit Task</h2>
+<title>FocusHub - Edit Task</title>
+<style>
+    body {
+        background-image: url('BG-1.jpeg'); /* adjust path if needed */
+        background-size: cover;
+        background-position: center;
+        font-family: 'Playfair Display', serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 50px;
+    }
+
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: transparent;
+        border-radius: 10px;
+        border-width: 4px;
+        border-style: solid;
+        border-color: rgba(112, 7, 3, 0.938);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    input[type="text"], select {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        font-size: 18px;
+        background-color: rgba(5, 223, 70, 0.918);
+    }
+
+    button {
+        display: block;
+        font-family: 'Playfair Display', serif;
+        margin-top: 20px;
+        font-size: 25px;
+        font-weight: bold;
+        text-transform: uppercase;
+        width: 100%;
+        padding: 10px;
+        background-color: rgba(255, 216, 20, 0.938);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        color: rgb(12, 11, 11);
+        border-width: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #000000;
+        color: rgba(240, 199, 18, 0.966);
+    }
+    a {
+        display: block;
+        text-align: left;
+        margin-top: 20px;
+        font-size: 20px;
+        color: #080766;
+        text-decoration: underline;
+    }
+</style>
+    <h2>📝 Edit Task</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
