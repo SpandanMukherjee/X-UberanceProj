@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusHub</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -14,6 +18,8 @@
         body {
             font-family: 'Playfair Display', serif;
             background-color: #f9f9f9;
+            color: #222;
+            min-height: 100vh;
         }
 
         header {
@@ -41,28 +47,32 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         nav ul li a {
             color: #fff;
             text-decoration: none;
-            padding: 10px 15px;
-            transition: background-color 0.3s ease;
-            border-radius: 4px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: background-color 0.25s ease;
+            font-size: 1rem;
         }
 
         nav ul li a:hover {
-            background-color: #555;
-        }
-
-        main {
-            padding: 40px 20px;
+            background-color: #444;
         }
 
         hr {
             border: none;
             border-top: 1px solid #ccc;
+        }
+
+        main {
+            padding: 40px 20px 80px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -72,7 +82,7 @@
         <div class="container">
             <div class="logo">FocusHub</div>
             <nav>
-                <ul class="nav-links">
+                <ul>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                         <li><a href="{% url 'todos' %}">To-Do</a></li>
