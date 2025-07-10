@@ -1,10 +1,8 @@
 {% extends "base.html" %}
-{% load form_filters %}
 
 {% block content %}
 <style>
     body {
-        background-image: url(/static/Clouds.jpg); /* adjust path if needed */
         background-size: cover;
         background-position: center;
         font-family: 'Playfair Display', serif;
@@ -68,9 +66,9 @@
     <h2>Sign Up</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.username|add_class:"username"|add_placeholder:"Username" }}
-        {{ form.email|add_class:"email"|add_placeholder:"Email" }}
-        {{ form.password|add_class:"password"|add_placeholder:"Password" }}
+        {{ form.username }}
+        {{ form.email }}
+        {{ form.password }}
         <button type="submit" class="signup-button">Create Account</button>
     </form>
     <p class="login-link">Already have an account? <a href="{% url 'login' %}">Log in</a></p>

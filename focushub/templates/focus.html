@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Focus Session</h2>
+
+{% if current_session %}
+    <h3>⏳ You are now in a Focus Session</h3>
+    <p>Started at: {{ current_session.start_time|date:"H:i A" }}</p>
+    <p>Task: {{ current_session.task.title }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="end_session">End Session</button>
+    </form>
+{% else %}
+    <form method="post">
+        {% csrf_token %}
+        <label>Select a task:</label>
+        <select name="task_id">
+            {% for task in tasks %}
+                <option value="{{ task.id }}">{{ task.title }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Start Focus</button>
+    </form>
+{% endif %}
+
+{% endblock %}

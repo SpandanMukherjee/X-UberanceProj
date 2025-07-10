@@ -1,13 +1,27 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Task, Habit
+from django.contrib.auth.forms import AuthenticationForm
+
+class CustomLoginForm(AuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'username', 'placeholder': 'Username'})
+        self.fields['password'].widget.attrs.update({'class': 'password', 'placeholder': 'Password'})
 
 class SignUpForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput, required=True)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'password', 'placeholder': 'Password'
+    }), required=True)
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'username', 'placeholder': 'Username'}),
+            'email': forms.EmailInput(attrs={'class': 'email', 'placeholder': 'Email'}),
+        }
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -34,7 +48,8 @@ class HabitForm(forms.ModelForm):
 
     def save(self, commit=True):
         task = super().save(commit=False)
-        task.is_done = False  # Habits are not marked as done
+        task.is_done = False
+
         if commit:
             task.save()
         return task

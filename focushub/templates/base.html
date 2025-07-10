@@ -1,73 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusHub</title>
     <style>
-         *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Playfair Display', serif;
+            background-color: #f9f9f9;
         }
+
+        header {
+            background-color: #0e0d0d;
+            color: #fff;
+            padding: 15px 0;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
-        header {
-            background-color: #0e0d0d;
-            color: #fff;
-            padding: 10px 0;
-        }
+
         .logo {
-            font-size: 1.5em;
+            font-size: 1.8em;
             font-weight: bold;
-            float: left;
+            color: #fff;
         }
-        nav {
-            float: right;
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
         }
-        .nav-links {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        .nav-links li {
-            display: inline-block;
-            margin-left: 20px;
-        }
-        .nav-links li a {
+
+        nav ul li a {
             color: #fff;
             text-decoration: none;
             padding: 10px 15px;
-            display: inline-block;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
+            border-radius: 4px;
         }
-        .nav-links li a:hover {
+
+        nav ul li a:hover {
             background-color: #555;
         }
-        </style>
-</head>   
+
+        main {
+            padding: 40px 20px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
 <body>
     <header>
         <div class="container">
-            <div class="logo">Focus Hub</div>
+            <div class="logo">FocusHub</div>
             <nav>
                 <ul class="nav-links">
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                         <li><a href="{% url 'todos' %}">To-Do</a></li>
                         <li><a href="{% url 'habits' %}">Habits</a></li>
+                        <li><a href="{% url 'focus' %}">Focus</a></li>
                         <li><a href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
-                        <li><a href="{% url 'login' %}">Login</a>
-                        <li><a href="{% url 'signup' %}">Sign Up</a>
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
                     {% endif %}
                 </ul>
             </nav>
@@ -76,7 +90,9 @@
 
     <hr>
 
-    {% block content %}
-    {% endblock %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>

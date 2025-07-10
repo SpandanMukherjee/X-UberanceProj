@@ -9,4 +9,6 @@ urlpatterns = [
     path('todos/', views.todos_view, name='todos'),
     path('complete/<int:task_id>/', views.complete_task, name='complete_task'),
     path('habits/', views.habits_view, name='habits'),
+    path('focus/', views.focus_view, name='focus'),
+    path('focus/confirm/', views.confirm_focus_completion, name='confirm_focus_completion'),
 ]

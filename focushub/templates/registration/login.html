@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load form_filters %}
 
 {% block content %}
 <style>
@@ -67,8 +66,8 @@
     <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.username|add_class:"username"|add_placeholder:"Username" }}
-        {{ form.password|add_class:"password"|add_placeholder:"Password" }}
+        {{ form.username }}
+        {{ form.password }}
         <button type="submit" class="login-button">Login</button>
     </form>
     <p class="signup-link">Don't have an account? <a href="{% url 'signup' %}">Sign Up Here</a></p>
