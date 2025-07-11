@@ -2,131 +2,144 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusHub</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FocusHub</title>
 
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-    <style>
+        <style>
 
-        .main-logo {
-            height: 70px;
-            width: auto;
-            vertical-align: middle;
-        }
+            .main-logo {
+                height: 70px;
+                width: auto;
+                vertical-align: middle;
+            }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-        body {
-            font-family: 'Playfair Display', serif;
-            background-color: #f9f9f9;
-            background-image: url("{% static 'background.jpg' %}");
-            background-size: cover;
-            background-position: center;
-            color: #222;
-            min-height: 100vh;
-        }
+            body {
+                font-family: 'Playfair Display', serif;
+                background-color: #f9f9f9;
+                background-image: url("{% static 'background.jpg' %}");
+                background-size: cover;
+                background-position: center;
+                color: #222;
+                min-height: 100vh;
+            }
 
-        header {
-            background-color:transparent;
-            backdrop-filter: blur;
-            color: #fff;
-            padding: 15px 0;
-        }
+            header {
+                background-color:transparent;
+                backdrop-filter: blur;
+                color: #fff;
+                padding: 15px 0;
+            }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
 
-        .logo {
-            padding-left: 15px;
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #465B6C;
-            border: 2px solid #5a0221;
-            border-radius: 6px;
-            background-color: rgba(0, 0, 0, 0.1);
-        }
+            .logo {
+                padding-left: 15px;
+                font-size: 1.8em;
+                font-weight: bold;
+                color: #465B6C;
+                border: 2px solid #5a0221;
+                border-radius: 6px;
+                background-color: rgba(0, 0, 0, 0.1);
+            }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            border: 2px solid #5a0221; /* red border around navbar */
-            border-radius: 6px;
-            padding: 15px 30px;
-            background-color: rgba(0, 0, 0, 0.1); /* optional subtle background */
-        }
+            nav ul {
+                list-style: none;
+                display: flex;
+                gap: 20px;
+                border: 2px solid #5a0221; /* red border around navbar */
+                border-radius: 6px;
+                padding: 15px 30px;
+                background-color: rgba(0, 0, 0, 0.1); /* optional subtle background */
+            }
 
-        nav ul li a {
-            color: maroon;
-            text-decoration: none;
-            padding: 8px 14px;
-            border-radius: 6px;
-            transition: background-color 0.25s ease;
-            font-size: 1.1rem;
-        }
+            nav ul li a {
+                color: maroon;
+                text-decoration: none;
+                padding: 8px 14px;
+                border-radius: 6px;
+                transition: background-color 0.25s ease;
+                font-size: 1.1rem;
+            }
 
-        nav ul li a:hover {
-            background-color: lightpink;
-        }
+            nav ul li a:hover {
+                background-color: lightpink;
+            }
 
-        hr {
-            border: none;
-            border-top: 1px solid #ccc;
-        }
+            hr {
+                border: none;
+                border-top: 1px solid #ccc;
+            }
 
-        main {
-            padding: 40px 20px 80px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
+            main {
+                padding: 40px 20px 80px;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
 
-<body>
+    <body>
 
-    {% block header %}
-    <header>
-        <div class="container">
-            <div class="logo">FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"> </div>
-            <nav>
-                <ul>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                        <li><a href="{% url 'todos' %}">To-Do</a></li>
-                        <li><a href="{% url 'habits' %}">Habits</a></li>
-                        <li><a href="{% url 'focus' %}">Focus</a></li>
-                        <li><a href="{% url 'logout' %}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{% url 'login' %}">Login</a></li>
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </div>
-    </header>
+        {% block header %}
+            <header>
 
-    {% endblock %}
+                <div class="container">
 
-    <hr>
+                    <div class="logo">FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"> </div>
 
-    <main>
-        {% block content %}
+                    <nav>
+
+                        <ul>
+
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                                <li><a href="{% url 'todos' %}">To-Do</a></li>
+                                <li><a href="{% url 'habits' %}">Habits</a></li>
+                                <li><a href="{% url 'focus' %}">Focus</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                            {% else %}
+                                <li><a href="{% url 'login' %}">Login</a></li>
+                                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                            {% endif %}
+
+                        </ul>
+
+                    </nav>
+
+                </div>
+
+            </header>
+
         {% endblock %}
-    </main>
-</body>
+
+        <hr>
+
+        <main>
+
+            {% block content %}
+            {% endblock %}
+
+        </main>
+
+    </body>
+    
 </html>

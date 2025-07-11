@@ -1,131 +1,143 @@
 {% extends "base.html" %}
-{% block content %}
-<title>FocusHub - Habit Selection </title>
-<style>
+    {% block content %}
+        <title>FocusHub - Habit Selection </title>
+        <style>
 
-    h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 50px;
-    }
+            h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                font-size: 50px;
+            }
 
-    form {
-        max-width: 600px;
-        margin: 30px auto;
-        padding: 25px 20px;
-        background-color: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(6px);
-        border: 2px solid #5a0221;  
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        border-color: maroon;
-    }
+            form {
+                max-width: 600px;
+                margin: 30px auto;
+                padding: 25px 20px;
+                background-color: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(6px);
+                border: 2px solid #5a0221;  
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                border-color: maroon;
+            }
 
-    input[type="text"], select {
-        width: 100%;
-        padding: 12px 14px;
-        margin-bottom: 24px;
-        border-radius: 6px;
-        font-size: 16px;
-        background-color: rgba(5, 223, 70, 0.918);
-        border: 2px solid #000;
-    }
+            input[type="text"], select {
+                width: 100%;
+                padding: 12px 14px;
+                margin-bottom: 24px;
+                border-radius: 6px;
+                font-size: 16px;
+                background-color: rgba(5, 223, 70, 0.918);
+                border: 2px solid #000;
+            }
 
-    button {
-        font-family: 'Playfair Display', serif;
-        margin-top: 10px;
-        font-size: 20px;
-        font-weight: bold;
-        text-transform: uppercase;
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background-color: #ffee05; /* Light yellow */
-        color: rgb(10, 10, 10);
-        border-width: 2px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+            button {
+                font-family: 'Playfair Display', serif;
+                margin-top: 10px;
+                font-size: 20px;
+                font-weight: bold;
+                text-transform: uppercase;
+                display: block;
+                width: 100%;
+                padding: 10px;
+                background-color: #ffee05; /* Light yellow */
+                color: rgb(10, 10, 10);
+                border-width: 2px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
 
-    button:hover {
-        background-color: #eec301; /* Darker yellow */
-    }
-    button:active {
-        background-color: #c7a602; /* Even darker yellow */
-    }
-    .habits {
-        font-family: 'Playfair Display', serif;
-        display: block;
-        margin-top: 10px;
-        background-color: transparent;
-        color: rgb(0, 0, 0);
-        font-size: 20px;    
-        font-weight: bold;
-        backdrop-filter: blur(10px);
-        border-color: rgb(14, 13, 13);
-        border-width: 2px;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    li:hover {
-        background-color: rgba(53, 2, 100, 0.808);
-        color: white;
-    }
-    hr {
-        margin: 20px auto;
-        width: 80%;
-        border: 1px solid #ccc;
-    }
-    h3 {
-        text-align: center;
-        margin-top: 30px;
-        font-size: 40px;
-        font-family: 'Playfair Display', serif;
-        color: #0c0101;
-        font-weight: bold;
-    }
+            button:hover {
+                b
+                ackground-color: #eec301; /* Darker yellow */
+            }
+            button:active {
+                background-color: #c7a602; /* Even darker yellow */
+            }
 
-    p {
-        text-align: left;
-        font-size: 25px;
-        color: #0c0101;
-        font-weight:bold;
-        margin-bottom: 10px;
-        text-decoration-thickness: 2px;
-    }
+            .habits {
+                font-family: 'Playfair Display', serif;
+                display: block;
+                margin-top: 10px;
+                background-color: transparent;
+                color: rgb(0, 0, 0);
+                font-size: 20px;    
+                font-weight: bold;
+                backdrop-filter: blur(10px);
+                border-color: rgb(14, 13, 13);
+                border-width: 2px;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+            
+            li:hover {
+                background-color: rgba(53, 2, 100, 0.808);
+                color: white;
+            }
+            
+            hr {
+                margin: 20px auto;
+                width: 80%;
+                border: 1px solid #ccc;
+            }
 
-    .para{
-        text-align: center;
-        font-size: 20px;
-        color: #0c0101;
-        font-weight: bold;
-        margin-top: 20px;
-    }
-</style>
-    <h2>Your Habit Goals</h2>
+            h3 {
+                text-align: center;
+                margin-top: 30px;
+                font-size: 40px;
+                font-family: 'Playfair Display', serif;
+                color: #0c0101;
+                font-weight: bold;
+            }
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Habit</button>
-    </form>
+            p {
+                text-align: left;
+                font-size: 25px;
+                color: #0c0101;
+                font-weight:bold;
+                margin-bottom: 10px;
+                text-decoration-thickness: 2px;
+            }
 
-    <hr>
-    <h3>🎯 <span class="Habit">Current Habits</span> 🎯</h3>
+            .para{
+                text-align: center;
+                font-size: 20px;
+                color: #0c0101;
+                font-weight: bold;
+                margin-top: 20px;
+            }
+        </style>
+            <h2>Your Habit Goals</h2>
 
-    {% if habits %}
-        <ul>
-            {% for habit in habits %}
-                <li class="habits">
-                    {{ habit.name }} - {{ habit.frequency|capfirst }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p class="para"> ↑  No habits added yet. Add one above!  ↑ </p>
-    {% endif %}
-{% endblock %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add Habit</button>
+            </form>
+
+            <hr>
+            <h3>🎯 <span class="Habit">Current Habits</span> 🎯</h3>
+
+            {% if habits %}
+
+                <ul>
+
+                    {% for habit in habits %}
+
+                        <li class="habits">
+                            {{ habit.name }} - {{ habit.frequency|capfirst }}
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            {% else %}
+                <p class="para"> ↑  No habits added yet. Add one above!  ↑ </p>
+            {% endif %}
+            
+    {% endblock %}

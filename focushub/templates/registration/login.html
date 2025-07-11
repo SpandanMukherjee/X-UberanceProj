@@ -1,107 +1,107 @@
 {% extends "base.html" %}
-{% load static %}
-{% block content %}
+    {% load static %}
+    {% block content %}
 
-<style>
-    {% block header %}
+        <style>
+            {% block header %}
+            {% endblock %}
+
+            .main-logo {
+                height: 70px;
+                width: auto;
+                vertical-align: middle;
+            }
+
+            .login-container {
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(12px);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-radius: 15px;
+                padding: 30px 30px;
+                width: 100%;
+                max-width: 450px;
+                margin: 60px auto;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                text-align: center;
+                border-color: maroon;
+            }
+
+            .login-container h2 {
+                margin-bottom: 20px;
+                font-size: 32px;
+                color: #222;
+            }
+
+            
+            .login-container input[type="password"], input[type="text"] {
+                width: 100%;
+                padding: 14px 12px;
+                margin-bottom: 20px;
+                border: 2px solid black;
+                border-radius: 8px;
+                font-size: 16px;
+                font-family: 'Playfair Display', serif;
+            }
+
+            .login-button {
+                background-color: rgb(255, 216, 20);
+                color: black;
+                border: 2px solid black;
+                border-radius: 8px;
+                padding: 12px 20px;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+                width: 100%;
+            }
+
+            .login-button:hover {
+                background-color: #ffd000;
+            }
+
+            .signup-link {
+                margin-top: 20px;
+                font-size: 14px;
+            }
+
+            .signup-link a {
+                color: #000;
+                text-decoration: underline;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 48px;
+                margin-top: 20px;
+                color: #222;
+            }
+
+            input {
+                width: 100%;
+                padding: 12px 14px;
+                margin-bottom: 24px;
+                border-radius: 6px;
+                font-size: 16px;
+                background-color: rgba(5, 223, 70, 0.918);
+                border: 2px solid #000;
+            }
+
+        </style>
+
+        <h1>FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"></h1>
+
+        <div class="login-container">
+            <h2>Login</h2>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.username }}
+                {{ form.password }}
+                <button type="submit" class="login-button">Login</button>
+            </form>
+
+            <p class="signup-link">Don't have an account? <a href="{% url 'signup' %}">Sign Up Here</a></p>
+        </div>
+
     {% endblock %}
-
-    .main-logo {
-        height: 70px;
-        width: auto;
-        vertical-align: middle;
-    }
-
-    .login-container {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(12px);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 15px;
-        padding: 30px 30px;
-        width: 100%;
-        max-width: 450px;
-        margin: 60px auto;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        text-align: center;
-        border-color: maroon;
-    }
-
-    .login-container h2 {
-        margin-bottom: 20px;
-        font-size: 32px;
-        color: #222;
-    }
-
-    
-    .login-container input[type="password"], input[type="text"] {
-        width: 100%;
-        padding: 14px 12px;
-        margin-bottom: 20px;
-        border: 2px solid black;
-        border-radius: 8px;
-        font-size: 16px;
-        font-family: 'Playfair Display', serif;
-    }
-
-    .login-button {
-        background-color: rgb(255, 216, 20);
-        color: black;
-        border: 2px solid black;
-        border-radius: 8px;
-        padding: 12px 20px;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        width: 100%;
-    }
-
-    .login-button:hover {
-        background-color: #ffd000;
-    }
-
-    .signup-link {
-        margin-top: 20px;
-        font-size: 14px;
-    }
-
-    .signup-link a {
-        color: #000;
-        text-decoration: underline;
-    }
-
-    h1 {
-        text-align: center;
-        font-size: 48px;
-        margin-top: 20px;
-        color: #222;
-    }
-
-    input {
-        width: 100%;
-        padding: 12px 14px;
-        margin-bottom: 24px;
-        border-radius: 6px;
-        font-size: 16px;
-        background-color: rgba(5, 223, 70, 0.918);
-        border: 2px solid #000;
-    }
-
-</style>
-
-<h1>FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"></h1>
-
-<div class="login-container">
-    <h2>Login</h2>
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.username }}
-        {{ form.password }}
-        <button type="submit" class="login-button">Login</button>
-    </form>
-
-    <p class="signup-link">Don't have an account? <a href="{% url 'signup' %}">Sign Up Here</a></p>
-</div>
-
-{% endblock %}

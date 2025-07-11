@@ -12,12 +12,10 @@ class CustomLoginForm(AuthenticationForm):
 
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'password', 'placeholder': 'Password'
-    }), required=True)
+        'class': 'password', 'placeholder': 'Password'}), required=True)
     
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'confirm_password', 'placeholder': 'Confirm Password'
-    }), required=True)
+        'class': 'confirm_password', 'placeholder': 'Confirm Password'}), required=True)
 
     class Meta:
         model = User
@@ -64,4 +62,5 @@ class HabitForm(forms.ModelForm):
 
         if commit:
             task.save()
+
         return task

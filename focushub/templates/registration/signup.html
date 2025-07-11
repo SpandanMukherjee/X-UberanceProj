@@ -1,120 +1,124 @@
 {% extends "base.html" %}
-{% load static %}
-{% block content %}
+    {% load static %}
+    {% block content %}
 
-<style>
-    
-    {% block header %}
+        <style>
+            
+            {% block header %}
+            {% endblock %}
+
+            .main-logo {
+                height: 70px;
+                width: auto;
+                vertical-align: middle;
+            }
+
+            .signup-container {
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(12px);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-radius: 15px;
+                padding: 30px;
+                width: 420px;
+                margin: 30px auto;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                border-color: maroon;
+            }
+
+            .signup-container h2 {
+                margin-top: 0;
+                margin-bottom: 15px;
+                font-size: 36px;
+                color: #222;
+            }
+
+            input.username, input.email, input.password, input.confirm_password {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 20px;
+                border: 2px solid black;
+                border-radius: 8px;
+                font-size: 16px;
+            }
+
+            .signup-button {
+                background-color: rgb(255, 216, 20);
+                color: black;
+                border: 2px solid black;
+                border-radius: 8px;
+                padding: 10px 24px;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+            }
+
+            .signup-button:hover {
+                background-color: #ffd000;
+            }
+
+            .login-link {
+                margin-top: 20px;
+                font-size: 14px;
+            }
+
+            .login-link a {
+                color: #000;
+                text-decoration: underline;
+            }
+
+            .errorlist {
+                color: red;
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 48px;
+                color: #222;
+            }
+
+            input {
+                width: 100%;
+                padding: 12px 14px;
+                margin-bottom: 24px;
+                border-radius: 6px;
+                font-size: 16px;
+                background-color: rgba(5, 223, 70, 0.918);
+                border: 2px solid #000;
+            }
+        </style>
+
+        <h1>FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"></h1>
+
+        <div class="signup-container">
+            <h2>Sign Up</h2>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.username }}
+                {{ form.email }}
+                {{ form.password }}
+                {{ form.confirm_password }}
+
+                {% for field in form %}
+
+                    {% for error in field.errors %}
+                        <div class="errorlist">{{ error }}</div>
+                    {% endfor %}
+
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                    <div class="errorlist">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+                <button type="submit" class="signup-button">Create Account</button>
+            </form>
+
+            <p class="login-link">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </div>
+        
     {% endblock %}
-
-    .main-logo {
-        height: 70px;
-        width: auto;
-        vertical-align: middle;
-    }
-
-    .signup-container {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(12px);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 15px;
-        padding: 30px;
-        width: 420px;
-        margin: 30px auto;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        border-color: maroon;
-    }
-
-    .signup-container h2 {
-        margin-top: 0;
-        margin-bottom: 15px;
-        font-size: 36px;
-        color: #222;
-    }
-
-    input.username,
-    input.email,
-    input.password,
-    input.confirm_password {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 20px;
-        border: 2px solid black;
-        border-radius: 8px;
-        font-size: 16px;
-    }
-
-    .signup-button {
-        background-color: rgb(255, 216, 20);
-        color: black;
-        border: 2px solid black;
-        border-radius: 8px;
-        padding: 10px 24px;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-    }
-
-    .signup-button:hover {
-        background-color: #ffd000;
-    }
-
-    .login-link {
-        margin-top: 20px;
-        font-size: 14px;
-    }
-
-    .login-link a {
-        color: #000;
-        text-decoration: underline;
-    }
-
-    .errorlist {
-        color: red;
-        font-size: 14px;
-        margin-bottom: 15px;
-    }
-
-    h1 {
-        text-align: center;
-        font-size: 48px;
-        color: #222;
-    }
-
-    input {
-        width: 100%;
-        padding: 12px 14px;
-        margin-bottom: 24px;
-        border-radius: 6px;
-        font-size: 16px;
-        background-color: rgba(5, 223, 70, 0.918);
-        border: 2px solid #000;
-    }
-</style>
-
-<h1>FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"></h1>
-<div class="signup-container">
-    <h2>Sign Up</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.username }}
-        {{ form.email }}
-        {{ form.password }}
-        {{ form.confirm_password }}
-
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="errorlist">{{ error }}</div>
-            {% endfor %}
-        {% endfor %}
-        {% if form.non_field_errors %}
-            <div class="errorlist">{{ form.non_field_errors }}</div>
-        {% endif %}
-
-        <button type="submit" class="signup-button">Create Account</button>
-    </form>
-    <p class="login-link">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
-</div>
-{% endblock %}

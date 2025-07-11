@@ -1,316 +1,371 @@
 {% extends "base.html" %}
-{% block content %}
-<title>FocusHub - To-Do List</title>
-<style>
+    {% block content %}
+        <title>FocusHub - To-Do List</title>
 
-    h2, h3, h4 {
-        text-align: center;
-        font-family: 'Playfair Display', serif;
-        margin-bottom: 16px;
-    }
+        <style>
 
-    h2 {
-        font-size: 42px;
-    }
+            h2, h3, h4 {
+                text-align: center;
+                font-family: 'Playfair Display', serif;
+                margin-bottom: 16px;
+            }
 
-    h3 {
-        margin-top: 50px;
-        font-size: 32px;
-        color: #111;
-    }
+            h2 {
+                font-size: 42px;
+            }
 
-    h4 {
-        font-size: 24px;
-        margin: 30px 0 10px;
-    }
+            h3 {
+                margin-top: 50px;
+                font-size: 32px;
+                color: #111;
+            }
 
-    form {
-        max-width: 600px;
-        margin: 30px auto;
-        padding: 25px 20px;
-        background-color: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(6px);
-        border: 2px solid #5a0221;  
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        border-color: maroon;
-    }
+            h4 {
+                font-size: 24px;
+                margin: 30px 0 10px;
+            }
 
-    input[type="text"], select {
-        width: 100%;
-        padding: 12px 14px;
-        margin-bottom: 24px;
-        border-radius: 6px;
-        font-size: 16px;
-        background-color: rgba(5, 223, 70, 0.918);
-        border: 2px solid #000;
-    }
+            form {
+                max-width: 600px;
+                margin: 30px auto;
+                padding: 25px 20px;
+                background-color: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(6px);
+                border: 2px solid #5a0221;  
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                border-color: maroon;
+            }
 
-    button {
-        display: inline-block;
-        font-family: 'Playfair Display', serif;
-        font-size: 18px;
-        font-weight: bold;
-        padding: 6px 10px; /* tighter */
-        margin: 4px 4px 4px 0;
-        background-color: #ffee05;
-        color: #000;
-        border: 2px solid #000;
-        border-radius: 5px;
-        cursor: pointer;
-        vertical-align: middle;
-        transition: background-color 0.2s ease;
-        box-shadow: none;
-    }
+            input[type="text"], select {
+                width: 100%;
+                padding: 12px 14px;
+                margin-bottom: 24px;
+                border-radius: 6px;
+                font-size: 16px;
+                background-color: rgba(5, 223, 70, 0.918);
+                border: 2px solid #000;
+            }
 
-    button:hover {
-        background-color: #eec301;
-    }
+            button {
+                display: inline-block;
+                font-family: 'Playfair Display', serif;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 6px 10px; /* tighter */
+                margin: 4px 4px 4px 0;
+                background-color: #ffee05;
+                color: #000;
+                border: 2px solid #000;
+                border-radius: 5px;
+                cursor: pointer;
+                vertical-align: middle;
+                transition: background-color 0.2s ease;
+                box-shadow: none;
+            }
 
-    .tasks {
-        list-style-type: none;
-        padding: 20px;
-        margin: 20px auto;
-        max-width: 750px;
-        border: 2px solid #5a0221;  
-        border-radius: 10px;
-        background-color: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(5px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-        text-transform: uppercase;
-    }
+            button:hover {
+                background-color: #eec301;
+            }
 
-    li {
-        font-size: 18px;
-        color: #000;
-    }
+            .tasks {
+                list-style-type: none;
+                padding: 20px;
+                margin: 20px auto;
+                max-width: 750px;
+                border: 2px solid #5a0221;  
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.08);
+                backdrop-filter: blur(5px);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+                text-transform: uppercase;
+            }
 
-    li form {
-        display: inline-block;
-        margin: 0 5px 0 0;
-        vertical-align: middle;
-        background-color: transparent;
-        padding: 0;
-        box-shadow: none;
-        border: none;
-        display: inline;
-        margin-right: 10px;
-    }
+            li {
+                font-size: 18px;
+                color: #000;
+            }
 
-    .completed-task {
-        color: black;
-        opacity: 0.7;
-        text-transform: uppercase;
-    }
+            li form {
+                display: inline-block;
+                margin: 0 5px 0 0;
+                vertical-align: middle;
+                background-color: transparent;
+                padding: 0;
+                box-shadow: none;
+                border: none;
+                display: inline;
+                margin-right: 10px;
+            }
 
-    .no-tasks {
-        text-align: center;
-        margin-top: 30px;
-        font-size: 18px;
-        color: #222;
-    }
+            .completed-task {
+                color: black;
+                opacity: 0.7;
+                text-transform: uppercase;
+            }
 
-    hr {
-        width: 80%;
-        margin: 50px auto 30px;
-        border-top: 1px solid #bbb;
-    }
+            .no-tasks {
+                text-align: center;
+                margin-top: 30px;
+                font-size: 18px;
+                color: #222;
+            }
 
-    li button {
-        font-family: 'Playfair Display', serif;
-        font-size: 14px;
-        padding: 6px 12px;
-        margin: 0;
-        background-color: #ffee05;
-        color: #000;
-        border: 2px solid #000;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        box-shadow: none;
-        box-sizing: border-box;
-        line-height: normal;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
+            hr {
+                width: 80%;
+                margin: 50px auto 30px;
+                border-top: 1px solid #bbb;
+            }
 
-    input[type="datetime-local"] {
-        width: 100%;
-        padding: 12px 14px;
-        margin-bottom: 24px;
-        border-radius: 6px;
-        font-size: 16px;
-        background-color: rgba(5, 223, 70, 0.918);
-        border: 2px solid #000;
-        color: #000;
-        box-sizing: border-box;
-        line-height: normal;
-        -webkit-appearance: none;
-        appearance: none;
-    }
+            li button {
+                font-family: 'Playfair Display', serif;
+                font-size: 14px;
+                padding: 6px 12px;
+                margin: 0;
+                background-color: #ffee05;
+                color: #000;
+                border: 2px solid #000;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+                box-shadow: none;
+                box-sizing: border-box;
+                line-height: normal;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-        filter: invert(0) brightness(0);
-        cursor: pointer;
-        font-size: 18px;
-        padding-left: 5px;
-    }
-</style>
+            input[type="datetime-local"] {
+                width: 100%;
+                padding: 12px 14px;
+                margin-bottom: 24px;
+                border-radius: 6px;
+                font-size: 16px;
+                background-color: rgba(5, 223, 70, 0.918);
+                border: 2px solid #000;
+                color: #000;
+                box-sizing: border-box;
+                line-height: normal;
+                -webkit-appearance: none;
+                appearance: none;
+            }
 
-<h2>📋 Your To-Do List</h2>
+            input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+                filter: invert(0) brightness(0);
+                cursor: pointer;
+                font-size: 18px;
+                padding-left: 5px;
+            }
+        </style>
 
-<form method="post" class="add-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="add-button" type="submit">Add Task</button>
-</form>
+        <h2>📋 Your To-Do List</h2>
 
-<hr>
+        <form method="post" class="add-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="add-button" type="submit">Add Task</button>
+        </form>
 
-<h3>⏱️ Pending Tasks</h3>
+        <hr>
 
-{% if grouped_tasks.overdue %}
-<h4 style="color: red;">⚠️ Overdue</h4>
-<ul class="tasks">
-    {% for task in grouped_tasks.overdue %}
-    <li>
+        <h3>⏱️ Pending Tasks</h3>
+
+        {% if grouped_tasks.overdue %}
+            <h4 style="color: red;">⚠️ Overdue</h4>
+
+            <ul class="tasks">
+
+                {% for task in grouped_tasks.overdue %}
+
+                    <li>
+                        
+                        {% with task.due_date|timesince as diff %}
+                            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (overdue by {{ diff }})
+                        {% endwith %}
+
+                        <form action="{% url 'complete_task' task.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">✔️</button>
+                        </form>
+
+                        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                            {% csrf_token %}
+                            <button type="submit">🗑️</button>
+                        </form>
+
+                        <form action="{% url 'edit_task' task.id %}" method="get">
+                            <button type="submit">✏️</button>
+                        </form>
+
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% endif %}
+
+        {% if grouped_tasks.today %}
+            <h4 style="color: green;">✅ Today</h4>
+
+            <ul class="tasks">
+                {% for task in grouped_tasks.today %}
+                    <li>
+
+                        {% with task.due_date|timeuntil as diff %}
+                            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
+                        {% endwith %}
+
+                        <form action="{% url 'complete_task' task.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">✔️</button>
+                        </form>
+
+                        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                            {% csrf_token %}
+                            <button type="submit">🗑️</button>
+                        </form>
+                        
+                        <form action="{% url 'edit_task' task.id %}" method="get">
+                            <button type="submit">✏️</button>
+                        </form>
+
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% endif %}
+
+        {% if grouped_tasks.tomorrow %}
+            <h4 style="color: #160c75;">📅 Tomorrow</h4>
+
+            <ul class="tasks">
+
+                {% for task in grouped_tasks.tomorrow %}
+
+                    <li>
+
+                        {% with task.due_date|timeuntil as diff %}
+                            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
+                        {% endwith %}
+
+                        <form action="{% url 'complete_task' task.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">✔️</button>
+                        </form>
+
+                        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                            {% csrf_token %}
+                            <button type="submit">🗑️</button>
+                        </form>
+
+                        <form action="{% url 'edit_task' task.id %}" method="get">
+                            <button type="submit">✏️</button>
+                        </form>
+
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% endif %}
+    
+
+        {% if grouped_tasks.upcoming %}
+            <h4 style="color: slateblue;">📅 Upcoming</h4>
+
+            <ul class="tasks">
+                {% for task in grouped_tasks.upcoming %}
+                    <li>
+
+                        {% with task.due_date|timeuntil as diff %}
+                            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
+                        {% endwith %}
+
+                        <form action="{% url 'complete_task' task.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">✔️</button>
+                        </form>
+
+                        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                            {% csrf_token %}
+                            <button type="submit">🗑️</button>
+                        </form>
+
+                        <form action="{% url 'edit_task' task.id %}" method="get">
+                            <button type="submit">✏️</button>
+                        </form>
+
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% endif %}
+
+        {% if grouped_tasks.later %}
+            <h4 style="color: gray;">💤 Later</h4>
+
+            <ul class="tasks">
+
+                    {% for task in grouped_tasks.later %}
+
+                        <li>
+                            
+                            {% with task.due_date|timeuntil as diff %}
+                                {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
+                            {% endwith %}
+
+                            <form action="{% url 'complete_task' task.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">✔️</button>
+                            </form>
+
+                            <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                                {% csrf_token %}
+                                <button type="submit">🗑️</button>
+                            </form>
+
+                            <form action="{% url 'edit_task' task.id %}" method="get">
+                                <button type="submit">✏️</button>
+                            </form>
+
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+        {% endif %}
+
+        {% if not grouped_tasks.today and not grouped_tasks.tomorrow and not grouped_tasks.upcoming and not grouped_tasks.later %}
+            <p class="no-tasks">No pending tasks.</p>
+        {% endif %}
+
+        <hr>
+
+        <h3>🎯 Completed Tasks</h3>
         
-        {% with task.due_date|timesince as diff %}
-            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (overdue by {{ diff }})
-        {% endwith %}
+        {% if completed_tasks %}
+            <ul class="tasks">
 
-        <form action="{% url 'complete_task' task.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">✔️</button>
-        </form>
-        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
-            {% csrf_token %}
-            <button type="submit">🗑️</button>
-        </form>
-        <form action="{% url 'edit_task' task.id %}" method="get">
-            <button type="submit">✏️</button>
-        </form>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+                {% for task in completed_tasks %}
 
-{% if grouped_tasks.today %}
-<h4 style="color: green;">✅ Today</h4>
-<ul class="tasks">
-    {% for task in grouped_tasks.today %}
-    <li>
-        {% with task.due_date|timeuntil as diff %}
-            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
-        {% endwith %}
-        <form action="{% url 'complete_task' task.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">✔️</button>
-        </form>
-        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
-            {% csrf_token %}
-            <button type="submit">🗑️</button>
-        </form>
-        <form action="{% url 'edit_task' task.id %}" method="get">
-            <button type="submit">✏️</button>
-        </form>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+                    <li class="completed-task">
+                        {{ task.title }} — was due {{ task.due_date|date:"M d, Y H:i" }}
+                    </li>
 
-{% if grouped_tasks.tomorrow %}
-<h4 style="color: #160c75;">📅 Tomorrow</h4>
-<ul class="tasks">
-    {% for task in grouped_tasks.tomorrow %}
-    <li>
-        {% with task.due_date|timeuntil as diff %}
-            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
-        {% endwith %}
-        <form action="{% url 'complete_task' task.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">✔️</button>
-        </form>
-        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
-            {% csrf_token %}
-            <button type="submit">🗑️</button>
-        </form>
-        <form action="{% url 'edit_task' task.id %}" method="get">
-            <button type="submit">✏️</button>
-        </form>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+                {% endfor %}
 
-{% if grouped_tasks.upcoming %}
-<h4 style="color: slateblue;">📅 Upcoming</h4>
-<ul class="tasks">
-    {% for task in grouped_tasks.upcoming %}
-    <li>
-        {% with task.due_date|timeuntil as diff %}
-            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
-        {% endwith %}
-        <form action="{% url 'complete_task' task.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">✔️</button>
-        </form>
-        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
-            {% csrf_token %}
-            <button type="submit">🗑️</button>
-        </form>
-        <form action="{% url 'edit_task' task.id %}" method="get">
-            <button type="submit">✏️</button>
-        </form>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+            </ul>
 
-{% if grouped_tasks.later %}
-<h4 style="color: gray;">💤 Later</h4>
-<ul class="tasks">
-    {% for task in grouped_tasks.later %}
-    <li>
-        
-        {% with task.due_date|timeuntil as diff %}
-            {{ task.title }} — due {{ task.due_date|date:"M d, Y H:i" }} (in {{ diff }})
-        {% endwith %}
+        {% else %}
+            <p class="no-tasks">No completed tasks yet.</p>
+        {% endif %}
 
-        <form action="{% url 'complete_task' task.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">✔️</button>
-        </form>
-        <form action="{% url 'delete_task' task.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
-            {% csrf_token %}
-            <button type="submit">🗑️</button>
-        </form>
-        <form action="{% url 'edit_task' task.id %}" method="get">
-            <button type="submit">✏️</button>
-        </form>
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
-
-{% if not grouped_tasks.today and not grouped_tasks.tomorrow and not grouped_tasks.upcoming and not grouped_tasks.later %}
-    <p class="no-tasks">No pending tasks.</p>
-{% endif %}
-
-<hr>
-
-<h3>🎯 Completed Tasks</h3>
-{% if completed_tasks %}
-<ul class="tasks">
-    {% for task in completed_tasks %}
-        <li class="completed-task">
-            {{ task.title }} — was due {{ task.due_date|date:"M d, Y H:i" }}
-        </li>
-    {% endfor %}
-</ul>
-{% else %}
-    <p class="no-tasks">No completed tasks yet.</p>
-{% endif %}
-
-{% endblock %}
+    {% endblock %}

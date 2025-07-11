@@ -9,6 +9,7 @@ from datetime import date, timedelta, datetime, time
 from .utils import enforce_focus_lock
 from django.db.models import Sum
 from django.utils import timezone
+
 @enforce_focus_lock
 def home_redirect(request):
 
@@ -106,7 +107,6 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
-
 @enforce_focus_lock
 @login_required
 def todos_view(request):
@@ -114,6 +114,7 @@ def todos_view(request):
 
     if request.method == 'POST':
         form = TaskForm(request.POST)
+
         if form.is_valid():
             task = form.save(commit=False)
             task.user = user
@@ -201,7 +202,6 @@ def focus_view(request):
     tasks = Task.objects.filter(user=user, is_done=False)
     return render(request, 'focus.html', {'current_session': current_session, 'tasks': tasks})
 
-
 @login_required
 def confirm_focus_completion(request):
     user = request.user
@@ -212,6 +212,7 @@ def confirm_focus_completion(request):
 
     if request.method == 'POST':
         decision = request.POST.get('completed')
+
         if decision == 'yes':
             session.task_completed = True
             session.save()
@@ -244,6 +245,7 @@ def edit_task(request, task_id):
 
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
+        
         if form.is_valid():
             form.save()
             return redirect('todos')
