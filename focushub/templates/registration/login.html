@@ -1,11 +1,14 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <style>
-    body {
-        background-size: cover;
-        background-position: center;
-        font-family: 'Playfair Display', serif;
+    {% block header %}
+    {% endblock %}
+
+    .main-logo {
+        height: 70px;
+        width: auto;
+        vertical-align: middle;
     }
 
     .login-container {
@@ -64,8 +67,16 @@
         color: #000;
         text-decoration: underline;
     }
+
+    h1 {
+        text-align: center;
+        font-size: 48px;
+        margin-top: 20px;
+        color: #222;
+    }
 </style>
 
+<h1>FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"></h1>
 <div class="login-container">
     <h2>Login</h2>
     <form method="post">

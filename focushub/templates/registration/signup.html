@@ -1,11 +1,15 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <style>
-    body {
-        background-size: cover;
-        background-position: center;
-        font-family: 'Playfair Display', serif;
+    
+    {% block header %}
+    {% endblock %}
+
+    .main-logo {
+        height: 70px;
+        width: auto;
+        vertical-align: middle;
     }
 
     .signup-container {
@@ -15,13 +19,14 @@
         border-radius: 15px;
         padding: 30px;
         width: 420px;
-        margin: 60px auto;
+        margin: 30px auto;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         text-align: center;
     }
 
     .signup-container h2 {
-        margin-bottom: 20px;
+        margin-top: 0;
+        margin-bottom: 15px;
         font-size: 36px;
         color: #222;
     }
@@ -69,8 +74,15 @@
         font-size: 14px;
         margin-bottom: 15px;
     }
+
+    h1 {
+        text-align: center;
+        font-size: 48px;
+        color: #222;
+    }
 </style>
 
+<h1>FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"></h1>
 <div class="signup-container">
     <h2>Sign Up</h2>
     <form method="post">
