@@ -2,11 +2,6 @@
 {% block content %}
 <title>FocusHub - Habit Selection </title>
 <style>
-    body {
-        background-size: cover;
-        background-position: center;
-        font-family: 'Playfair Display', serif;
-    }
 
     h2 {
         text-align: center;
@@ -56,13 +51,7 @@
     button:active {
         background-color: #c7a602; /* Even darker yellow */
     }
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 20px auto;
-        max-width: 500px;
-    }
-    li {
+    .habits {
         font-family: 'Playfair Display', serif;
         display: block;
         margin-top: 10px;
@@ -127,7 +116,7 @@
     {% if habits %}
         <ul>
             {% for habit in habits %}
-                <li>
+                <li class="habits">
                     {{ habit.name }} - {{ habit.frequency|capfirst }}
                 </li>
             {% endfor %}
