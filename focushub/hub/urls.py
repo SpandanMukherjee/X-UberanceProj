@@ -11,7 +11,6 @@ urlpatterns = [
     path('habits/', views.habits_view, name='habits'),
     path('focus/', views.focus_view, name='focus'),
     path('focus/confirm/', views.confirm_focus_completion, name='confirm_focus_completion'),
-    path('analytics/', views.analytics_view, name='analytics'),
     path('delete/<int:task_id>/', views.delete_task, name='delete_task'),
     path('edit/<int:task_id>/', views.edit_task, name='edit_task'),
 ]

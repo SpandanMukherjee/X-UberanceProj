@@ -48,7 +48,36 @@ def dashboard(request):
                 due_datetime = datetime.combine(due_day, time(hour=23, minute=59, second=59))
                 Task.objects.create(user=user, title=f"{habit.name} (Habit)", due_date=due_datetime, from_habit=habit)
 
-    return render(request, 'dashboard.html')
+    user = request.user
+    today = date.today()
+    week_start = today - timedelta(days=today.weekday())
+    month_start = today.replace(day=1)
+
+    sessions = FocusSession.objects.filter(user=user)
+    total_sessions = sessions.count()
+    completed_tasks = sessions.filter(task_completed=True).count()
+
+    total_duration = sessions.aggregate(Sum('duration'))['duration__sum'] or timedelta()
+    weekly_duration = sessions.filter(start_time__date__gte=week_start).aggregate(Sum('duration'))['duration__sum'] or timedelta()
+    monthly_duration = sessions.filter(start_time__date__gte=month_start).aggregate(Sum('duration'))['duration__sum'] or timedelta()
+
+    avg_duration = total_duration / total_sessions if total_sessions else timedelta()
+
+    def format_duration(td):
+        total_minutes = int(td.total_seconds() // 60)
+        hours, minutes = divmod(total_minutes, 60)
+        return f"{hours}h {minutes}m" if hours else f"{minutes} min"
+
+    context = {
+        'total_sessions': total_sessions,
+        'completed_tasks': completed_tasks,
+        'total_focus_time': format_duration(total_duration),
+        'weekly_focus_time': format_duration(weekly_duration),
+        'monthly_focus_time': format_duration(monthly_duration),
+        'avg_focus_time': format_duration(avg_duration),
+    }
+
+    return render(request, 'dashboard.html', context)
 
 @enforce_focus_lock
 def signup_view(request):
@@ -200,41 +229,6 @@ def confirm_focus_completion(request):
         return redirect('todos')
 
     return render(request, 'confirm_completion.html', {'session': session})
-
-
-@enforce_focus_lock
-@login_required
-def analytics_view(request):
-    user = request.user
-    today = date.today()
-    week_start = today - timedelta(days=today.weekday())
-    month_start = today.replace(day=1)
-
-    sessions = FocusSession.objects.filter(user=user)
-    total_sessions = sessions.count()
-    completed_tasks = sessions.filter(task_completed=True).count()
-
-    total_duration = sessions.aggregate(Sum('duration'))['duration__sum'] or timedelta()
-    weekly_duration = sessions.filter(start_time__date__gte=week_start).aggregate(Sum('duration'))['duration__sum'] or timedelta()
-    monthly_duration = sessions.filter(start_time__date__gte=month_start).aggregate(Sum('duration'))['duration__sum'] or timedelta()
-
-    avg_duration = total_duration / total_sessions if total_sessions else timedelta()
-
-    def format_duration(td):
-        total_minutes = int(td.total_seconds() // 60)
-        hours, minutes = divmod(total_minutes, 60)
-        return f"{hours}h {minutes}m" if hours else f"{minutes} min"
-
-    context = {
-        'total_sessions': total_sessions,
-        'completed_tasks': completed_tasks,
-        'total_focus_time': format_duration(total_duration),
-        'weekly_focus_time': format_duration(weekly_duration),
-        'monthly_focus_time': format_duration(monthly_duration),
-        'avg_focus_time': format_duration(avg_duration),
-    }
-
-    return render(request, 'analytics.html', context)
 
 @login_required
 @enforce_focus_lock

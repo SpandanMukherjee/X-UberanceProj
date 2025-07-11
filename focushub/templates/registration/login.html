@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+
 <style>
     {% block header %}
     {% endblock %}
@@ -74,17 +75,22 @@
         margin-top: 20px;
         color: #222;
     }
+
 </style>
 
 <h1>FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"></h1>
+
 <div class="login-container">
     <h2>Login</h2>
+
     <form method="post">
         {% csrf_token %}
         {{ form.username }}
         {{ form.password }}
         <button type="submit" class="login-button">Login</button>
     </form>
+
     <p class="signup-link">Don't have an account? <a href="{% url 'signup' %}">Sign Up Here</a></p>
 </div>
+
 {% endblock %}
