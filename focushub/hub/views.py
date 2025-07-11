@@ -226,7 +226,7 @@ def confirm_focus_completion(request):
                         date=session.task.due_date.date()
                     ).update(completed=True)
 
-        return redirect('todos')
+        return redirect('dashboard')
 
     return render(request, 'confirm_completion.html', {'session': session})
 

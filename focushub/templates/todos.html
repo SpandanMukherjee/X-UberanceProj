@@ -10,7 +10,6 @@
     }
 
     h2 {
-        margin-top: 40px;
         font-size: 42px;
     }
 
@@ -31,8 +30,10 @@
         padding: 25px 20px;
         background-color: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(6px);
+        border: 2px solid #5a0221;  
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-color: maroon;
     }
 
     input[type="text"], select {
@@ -157,10 +158,9 @@
     }
 </style>
 
-
 <h2>📋 Your To-Do List</h2>
 
-<form method="post">
+<form method="post" class="add-form">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="add-button" type="submit">Add Task</button>

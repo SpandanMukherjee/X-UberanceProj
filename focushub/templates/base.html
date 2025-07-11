@@ -12,6 +12,12 @@
 
     <style>
 
+        .main-logo {
+            height: 70px;
+            width: auto;
+            vertical-align: middle;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -29,7 +35,8 @@
         }
 
         header {
-            background-color: #0e0d0d;
+            background-color:transparent;
+            backdrop-filter: blur;
             color: #fff;
             padding: 15px 0;
         }
@@ -45,9 +52,13 @@
         }
 
         .logo {
+            padding-left: 15px;
             font-size: 1.8em;
             font-weight: bold;
-            color: #fff;
+            color: #465B6C;
+            border: 2px solid #5a0221;
+            border-radius: 6px;
+            background-color: rgba(0, 0, 0, 0.1);
         }
 
         nav ul {
@@ -61,16 +72,16 @@
         }
 
         nav ul li a {
-            color: #fff;
+            color: maroon;
             text-decoration: none;
             padding: 8px 14px;
             border-radius: 6px;
             transition: background-color 0.25s ease;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         nav ul li a:hover {
-            background-color: #444;
+            background-color: lightpink;
         }
 
         hr {
@@ -91,7 +102,7 @@
     {% block header %}
     <header>
         <div class="container">
-            <div class="logo">FocusHub</div>
+            <div class="logo">FocusHub <img class="main-logo" src="{% static "C:\Users\ASUS\Desktop\X-UberanceProj\focushub\static\logo.png" %}"> </div>
             <nav>
                 <ul>
                     {% if user.is_authenticated %}

@@ -2,80 +2,99 @@
 
 {% block content %}
 <title>FocusHub - Edit Task</title>
+
 <style>
-    body {
-        background-size: cover;
-        background-position: center;
+    /* Styles copied from todos.html for consistency */
+    h2, h3, h4 {
+        text-align: center;
         font-family: 'Playfair Display', serif;
+        margin-bottom: 16px;
     }
 
     h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 50px;
+        font-size: 42px; /* Adjusted slightly for edit page prominence if desired, or keep at 50px as it was */
+        margin-bottom: 20px; /* From original edit_task.html */
+    }
+
+    /* No h3/h4 in edit_task, but keeping rules for consistency if ever added */
+    h3 {
+        margin-top: 50px;
+        font-size: 32px;
+        color: #111;
+    }
+
+    h4 {
+        font-size: 24px;
+        margin: 30px 0 10px;
     }
 
     form {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: transparent;
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 25px 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(6px);
+        border: 2px solid #5a0221;  
         border-radius: 10px;
-        border-width: 4px;
-        border-style: solid;
-        border-color: rgba(112, 7, 3, 0.938);
-        backdrop-filter: blur(10px);
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-    }
-
-    input[type="text"], select {
-        width: calc(100% - 20px);
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        font-size: 18px;
-        background-color: rgba(5, 223, 70, 0.918);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-color: maroon;
     }
 
     button {
-        display: block;
-        font-family: 'Playfair Display', serif;
-        margin-top: 20px;
-        font-size: 25px;
+        display: inline-block;
+        font-size: 14px;
         font-weight: bold;
-        text-transform: uppercase;
-        width: 100%;
-        padding: 10px;
-        background-color: rgba(255, 216, 20, 0.938);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-        color: rgb(12, 11, 11);
-        border-width: 2px;
+        padding: 6px 10px;
+        margin: 4px 4px 4px 0;
+        background-color: #ffee05;
+        color: #000;
+        border: 2px solid #000;
         border-radius: 5px;
         cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        vertical-align: middle;
+        transition: background-color 0.2s ease;
+        box-shadow: none;
     }
 
     button:hover {
-        background-color: #000000;
-        color: rgba(240, 199, 18, 0.966);
+        background-color: #eec301;
     }
-    a {
-        display: block;
-        text-align: left;
-        margin-top: 20px;
-        font-size: 20px;
-        color: #080766;
-        text-decoration: underline;
+
+    input[type="text"], select {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 24px;
+        border-radius: 6px;
+        font-size: 16px;
+        background-color: rgba(5, 223, 70, 0.918);
+        border: 2px solid #000;
     }
+
+    input[type="datetime-local"] {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 24px;
+        border-radius: 6px;
+        font-size: 16px;
+        background-color: rgba(5, 223, 70, 0.918);
+        border: 2px solid #000;
+        color: #000;
+        box-sizing: border-box;
+        line-height: normal;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    
+    .cancel {
+        float: right;
+    }
+    
 </style>
     <h2>📝 Edit Task</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Update Task</button>
-        <a href="{% url 'todos' %}">Cancel</a>
+        <button class="cancel" type="submit">Cancel</button>
     </form>
 {% endblock %}
