@@ -88,8 +88,7 @@ def signup_view(request):
 
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            return redirect('dashboard')
+            return redirect('login')
     else:
         form = SignUpForm()
 
